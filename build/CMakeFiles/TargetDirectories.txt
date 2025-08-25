@@ -1,0 +1,3 @@
+/home/sol/Descargas/1. Warm Up - Starter Code/build/CMakeFiles/orbitalsim.dir
+/home/sol/Descargas/1. Warm Up - Starter Code/build/CMakeFiles/edit_cache.dir
+/home/sol/Descargas/1. Warm Up - Starter Code/build/CMakeFiles/rebuild_cache.dir
