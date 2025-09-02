@@ -90,7 +90,6 @@ OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initia
                 (Sim->bodys+i)->velocity = (initialBodies+i)->velocity;
                 (Sim->bodys+i)->acceleration = {0.0f, 0.0f, 0.0f};
                 (Sim->bodys+i)->FGravity = {0.0f, 0.0f, 0.0f};
-                (Sim->bodys+i)->asteroid = (initialBodies+i)->asteroid;
             }
         }
     }

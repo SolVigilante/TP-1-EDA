@@ -100,20 +100,18 @@ void renderView(View *view, OrbitalSim *sim)
     BeginMode3D(view->camera);
 
     // Fill in your 3D drawing code here:
+    // Planetas:
         for (int i = 0; i < sim->bodynum; i++) {
             double scaledRadius = 0.012f * logf(sim->bodys[i].radius);
             Vector3 posEscalada = Vector3Scale(sim->bodys[i].position, 1e-11f);
-            if((sim->bodys+i)->asteroid == false)
-            {
-                ///printf("planeta");
-                DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
-            }
-            else if ((sim->bodys+i)->asteroid == true)
-            {
-                //printf("asteroide");
+            if(sim->bodys[i].asteroid == false)
+                DrawSphere(posEscalada, scaledRadius, GRAY);
+            else{
                 DrawSphereWires(posEscalada, scaledRadius, 8, 8, sim->bodys[i].color);
+                //DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
             }
-         } 
+        }
+    
 
 
 
