@@ -126,12 +126,9 @@ void updateOrbitalSim(OrbitalSim *sim)
 
     // Actualizar la Fuerza Graviatoria
     for(int i = 0; i<sim->bodynum; i++)
-    {   
-        if(((sim->bodys+i)->asteroid)) break;
-
+    { 
         for(int j=0; j < sim->bodynum; j++)
         {
-            if(((sim->bodys+j)->asteroid)) break;
             if(j!=i)
             {
                 if((sim->bodys+j)->mass / (sim->bodys+i)->mass > 0.001)
@@ -147,19 +144,19 @@ void updateOrbitalSim(OrbitalSim *sim)
             }
         }
     }
-    for(int i = 0; i<sim->bodynum && !(sim->bodys+i)->asteroid ; i++)
+    for(int i = 0; i<sim->bodynum; i++)
     {
         //Actualizar aceleracion 
         (sim->bodys+i)->acceleration =(sim->bodys+i)->FGravity;
     }
 
-    for(int i = 0; i<sim->bodynum && !(sim->bodys+i)->asteroid ; i++)
+    for(int i = 0; i<sim->bodynum ; i++)
     {
         //Actualizar velocidad
         (sim->bodys+i)->velocity = Vector3Add((sim->bodys+i)->velocity, Vector3Scale((sim->bodys+i)->acceleration, sim->timestep));
     }
 
-    for(int i = 0; i<sim->bodynum && !(sim->bodys+i)->asteroid ; i++)
+    for(int i = 0; i<sim->bodynum; i++)
     {
         //Actualizar posicion
         (sim->bodys+i)->position = Vector3Add((sim->bodys+i)->position, Vector3Scale((sim->bodys+i)->velocity, sim->timestep));
