@@ -5,6 +5,8 @@
  * @copyright Copyright (c) 2022-2023
  */
 
+ #include <stdio.h>
+
 #include "OrbitalSim.h"
 #include "View.h"
 
@@ -117,11 +119,15 @@ int main()
             false,
         },
     };
+
     for(int i = 9; i < 1009; i++) {
-        configureAsteroid(&initialBodies[i], initialBodies[0].mass);
+        configureAsteroid(initialBodies+i, initialBodies[0].mass);
+        initialBodies[i].asteroid = true;
+        //printf("%d\n", (initialBodies+i)->asteroid);
     }
 
     OrbitalSim *sim = constructOrbitalSim(timeStep, 1009, initialBodies);
+    
     View *view = constructView(fps);
 
     while (isViewRendering(view))

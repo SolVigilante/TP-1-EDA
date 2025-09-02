@@ -35,12 +35,13 @@ struct OrbitalSim
     float timestep;
     float timestart;
     int bodynum;
+    int asteroidnum;
     OrbitalBody  * bodys;
 
 
 };
 
-OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initialBodies);
+OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initialBodies); 
 void destroyOrbitalSim(OrbitalSim *sim);
 void updateOrbitalSim2(OrbitalSim *sim);
 void configureAsteroid(OrbitalBody *body, float centerMass);

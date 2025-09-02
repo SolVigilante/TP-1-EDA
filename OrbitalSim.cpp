@@ -55,7 +55,6 @@ void configureAsteroid(OrbitalBody *body, float centerMass)
 
     //Fill in with your own fields:
     body->name = "Asteroide";
-    body->asteroid = true;
     body->mass = 1E12F;  // Typical asteroid weight: 1 billion tons
     body->radius = 2E3F; // Typical asteroid radius: 2km
     body->color = GRAY;
@@ -91,6 +90,7 @@ OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initia
                 (Sim->bodys+i)->velocity = (initialBodies+i)->velocity;
                 (Sim->bodys+i)->acceleration = {0.0f, 0.0f, 0.0f};
                 (Sim->bodys+i)->FGravity = {0.0f, 0.0f, 0.0f};
+                (Sim->bodys+i)->asteroid = (initialBodies+i)->asteroid;
             }
         }
     }
@@ -146,19 +146,19 @@ void updateOrbitalSim(OrbitalSim *sim)
             }
         }
     }
-    for(int i = 0; i<sim->bodynum; i++)
+    for(int i = 0; i<sim->bodynum && !(sim->bodys+i)->asteroid ; i++)
     {
         //Actualizar aceleracion 
         (sim->bodys+i)->acceleration =(sim->bodys+i)->FGravity;
     }
 
-    for(int i = 0; i<sim->bodynum; i++)
+    for(int i = 0; i<sim->bodynum && !(sim->bodys+i)->asteroid ; i++)
     {
         //Actualizar velocidad
         (sim->bodys+i)->velocity = Vector3Add((sim->bodys+i)->velocity, Vector3Scale((sim->bodys+i)->acceleration, sim->timestep));
     }
 
-    for(int i = 0; i<sim->bodynum; i++)
+    for(int i = 0; i<sim->bodynum && !(sim->bodys+i)->asteroid ; i++)
     {
         //Actualizar posicion
         (sim->bodys+i)->position = Vector3Add((sim->bodys+i)->position, Vector3Scale((sim->bodys+i)->velocity, sim->timestep));
