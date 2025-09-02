@@ -54,6 +54,8 @@ void configureAsteroid(OrbitalBody *body, float centerMass)
     float vy = getRandomFloat(-1E2F, 1E2F);
 
     //Fill in with your own fields:
+    body->name = "Asteroide";
+    body->asteroid = true;
     body->mass = 1E12F;  // Typical asteroid weight: 1 billion tons
     body->radius = 2E3F; // Typical asteroid radius: 2km
     body->color = GRAY;
@@ -123,9 +125,12 @@ void updateOrbitalSim(OrbitalSim *sim)
 
     // Actualizar la Fuerza Graviatoria
     for(int i = 0; i<sim->bodynum; i++)
-    {
+    {   
+        if(((sim->bodys+i)->asteroid)) break;
+
         for(int j=0; j < sim->bodynum; j++)
         {
+            if(((sim->bodys+j)->asteroid)) break;
             if(j!=i)
             {
                 if((sim->bodys+j)->mass / (sim->bodys+i)->mass > 0.001)

@@ -102,8 +102,12 @@ void renderView(View *view, OrbitalSim *sim)
         for (int i = 0; i < sim->bodynum; i++) {
             double scaledRadius = 0.012f * logf(sim->bodys[i].radius);
             Vector3 posEscalada = Vector3Scale(sim->bodys[i].position, 1e-11f);
-            DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
-         }
+            if(sim->bodys[i].asteroid == false)
+                DrawSphere(posEscalada, scaledRadius, GRAY);
+            else{
+                DrawSphereWires(posEscalada, scaledRadius, 8, 8, sim->bodys[i].color);
+            }
+         } 
 
 
 
@@ -113,6 +117,7 @@ void renderView(View *view, OrbitalSim *sim)
     // Fill in your 2D drawing code here:
 
 
-
+    SetTargetFPS(60); // Opcional: limitar a 60 FPS
+    DrawFPS(10, 10);  // Muestra FPS en la esquina superior izquierda
     EndDrawing();
 }
