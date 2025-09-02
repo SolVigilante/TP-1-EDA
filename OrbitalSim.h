@@ -16,13 +16,14 @@ struct OrbitalBody
 {
     // Fill in your code here...
     const char *name; // Name
-    float mass;		  // [kg]
-    float radius;	  // [m]
+    double mass;		  // [kg]
+    double radius;	  // [m]
     Color color;	  // Raylib color
     Vector3 position; // [m]
     Vector3 velocity; // [m/s]
     Vector3 acceleration; //[m/s^2]
     Vector3 FGravity; //[N]
+    bool asteroid;
 };
 
 /**
@@ -42,7 +43,7 @@ struct OrbitalSim
 OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initialBodies);
 void destroyOrbitalSim(OrbitalSim *sim);
 void updateOrbitalSim2(OrbitalSim *sim);
-
+void configureAsteroid(OrbitalBody *body, float centerMass);
 void updateOrbitalSim(OrbitalSim *sim);
 
 #endif

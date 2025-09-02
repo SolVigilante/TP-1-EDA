@@ -7,7 +7,7 @@
 
 // Enables M_PI #define in Windows
 #define _USE_MATH_DEFINES
-
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <raylib.h>
@@ -46,19 +46,19 @@ void configureAsteroid(OrbitalBody *body, float centerMass)
     float r = ASTEROIDS_MEAN_RADIUS * sqrtf(fabsf(l));
     float phi = getRandomFloat(0, 2.0F * (float)M_PI);
 
-    // Surprise!
-    // phi = 0;
+    //Surprise!
+    //phi = 0;
 
     // https://en.wikipedia.org/wiki/Circular_orbit#Velocity
     float v = sqrtf(GRAVITATIONAL_CONSTANT * centerMass / r) * getRandomFloat(0.6F, 1.2F);
     float vy = getRandomFloat(-1E2F, 1E2F);
 
-    // Fill in with your own fields:
-    // body->mass = 1E12F;  // Typical asteroid weight: 1 billion tons
-    // body->radius = 2E3F; // Typical asteroid radius: 2km
-    // body->color = GRAY;
-    // body->position = {r * cosf(phi), 0, r * sinf(phi)};
-    // body->velocity = {-v * sinf(phi), vy, v * cosf(phi)};
+    //Fill in with your own fields:
+    body->mass = 1E12F;  // Typical asteroid weight: 1 billion tons
+    body->radius = 2E3F; // Typical asteroid radius: 2km
+    body->color = GRAY;
+    body->position = {r * cosf(phi), 0, r * sinf(phi)};
+    body->velocity = {-v * sinf(phi), vy, v * cosf(phi)};
 }
 
 /**
@@ -130,13 +130,13 @@ void updateOrbitalSim(OrbitalSim *sim)
             {
                 if((sim->bodys+j)->mass / (sim->bodys+i)->mass > 0.001)
                 {
-                    Vector3 direccion = Vector3Subtract(sim->bodys[i].position, sim->bodys[j].position);
+                    Vector3 direccion = Vector3Subtract(sim->bodys[j].position, sim->bodys[i].position);
     
                     double distancia = Vector3Length(direccion);
                     
-                    double magnitud = GRAVITATIONAL_CONSTANT * sim->bodys[i].mass * sim->bodys[j].mass / (distancia * distancia);
+                    double magnitud = GRAVITATIONAL_CONSTANT * sim->bodys[j].mass / (distancia * distancia);
                     
-                    Vector3 fuerza = Vector3Scale(Vector3Normalize(direccion), magnitud);
+                    (sim->bodys+i)->FGravity = Vector3Add((sim->bodys+i)->FGravity, Vector3Scale(Vector3Normalize(direccion), magnitud));
                 }
             }
         }
@@ -144,7 +144,7 @@ void updateOrbitalSim(OrbitalSim *sim)
     for(int i = 0; i<sim->bodynum; i++)
     {
         //Actualizar aceleracion 
-        (sim->bodys+i)->acceleration = Vector3Scale((sim->bodys+i)->FGravity, 1.0f/((sim->bodys+i)->mass));
+        (sim->bodys+i)->acceleration =(sim->bodys+i)->FGravity;
     }
 
     for(int i = 0; i<sim->bodynum; i++)
