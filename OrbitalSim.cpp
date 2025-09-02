@@ -55,6 +55,7 @@ void configureAsteroid(OrbitalBody *body, float centerMass)
 
     //Fill in with your own fields:
     body->name = "Asteroide";
+    body->asteroid = true;
     body->mass = 1E12F;  // Typical asteroid weight: 1 billion tons
     body->radius = 2E3F; // Typical asteroid radius: 2km
     body->color = GRAY;
@@ -90,6 +91,7 @@ OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initia
                 (Sim->bodys+i)->velocity = (initialBodies+i)->velocity;
                 (Sim->bodys+i)->acceleration = {0.0f, 0.0f, 0.0f};
                 (Sim->bodys+i)->FGravity = {0.0f, 0.0f, 0.0f};
+                (Sim->bodys+i)->asteroid = (initialBodies+i)->asteroid;
             }
         }
     }

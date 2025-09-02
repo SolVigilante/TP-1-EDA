@@ -105,7 +105,7 @@ void renderView(View *view, OrbitalSim *sim)
             double scaledRadius = 0.012f * logf(sim->bodys[i].radius);
             Vector3 posEscalada = Vector3Scale(sim->bodys[i].position, 1e-11f);
             if(sim->bodys[i].asteroid == false)
-                DrawSphere(posEscalada, scaledRadius, GRAY);
+                DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
             else{
                 DrawSphereWires(posEscalada, scaledRadius, 8, 8, sim->bodys[i].color);
                 //DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
