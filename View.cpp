@@ -6,6 +6,10 @@
  */
 
 #include <time.h>
+#include <stdlib.h>
+#include <math.h>
+#include <raylib.h>
+#include "raymath.h"
 
 #include "View.h"
 
@@ -95,6 +99,11 @@ void renderView(View *view, OrbitalSim *sim)
     BeginMode3D(view->camera);
 
     // Fill in your 3D drawing code here:
+        for (int i = 0; i < sim->bodynum; i++) {
+            float scaledRadius = 0.005f * logf(sim->bodys[i].radius);
+            Vector3 posEscalada = Vector3Scale(sim->bodys[i].position, 1e-11f);
+            DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
+         }
 
 
 

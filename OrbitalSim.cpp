@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <raylib.h>
 
 #include "OrbitalSim.h"
 #include "ephemerides.h"
@@ -66,13 +67,32 @@ void configureAsteroid(OrbitalBody *body, float centerMass)
  * @param float The time step
  * @return The orbital simulation
  */
-OrbitalSim *constructOrbitalSim(float timeStep)
+OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initialBodies)
 {
     // Your code goes here...
-
-
-
-    return NULL; // This should return your orbital sim
+    OrbitalSim * Sim = new OrbitalSim;
+    if(Sim != NULL)
+    {
+        Sim->timestep = timeStep; 
+        Sim->bodynum = bodynum;
+        Sim->timestart = 0.0f;
+        Sim->bodys = new OrbitalBody[bodynum];
+        if(Sim->bodys != NULL)
+        {
+            for(int i = 0; i<bodynum; i++)
+            {
+                (Sim->bodys+i)->name = (initialBodies+i)->name;
+                (Sim->bodys+i)->mass = (initialBodies+i)->mass;
+                (Sim->bodys+i)->radius = (initialBodies+i)->radius;
+                (Sim->bodys+i)->color = (initialBodies+i)->color;
+                (Sim->bodys+i)->position = (initialBodies+i)->position;
+                (Sim->bodys+i)->velocity = (initialBodies+i)->velocity;
+                (Sim->bodys+i)->acceleration = {0.0f, 0.0f, 0.0f};
+                (Sim->bodys+i)->FGravity = {0.0f, 0.0f, 0.0f};
+            }
+        }
+    }
+    return Sim;
 }
 
 /**
@@ -80,8 +100,8 @@ OrbitalSim *constructOrbitalSim(float timeStep)
  */
 void destroyOrbitalSim(OrbitalSim *sim)
 {
-    // Your code goes here...
-
+    free(sim->bodys);
+    free(sim);
 
 }
 
@@ -90,9 +110,53 @@ void destroyOrbitalSim(OrbitalSim *sim)
  *
  * @param sim The orbital simulation
  */
+void updateOrbitalSim2(OrbitalSim *sim)
+{
+    (sim->bodys+1)->position = Vector3Add((sim->bodys+1)->position, Vector3Scale((sim->bodys+1)->velocity, sim->timestep));
+}
+
 void updateOrbitalSim(OrbitalSim *sim)
 {
-    // Your code goes here...
+    for(int i = 0; i < sim->bodynum; i++) {
+        sim->bodys[i].FGravity = (Vector3){0, 0, 0};
+    }
 
+    // Actualizar la Fuerza Graviatoria
+    for(int i = 0; i<sim->bodynum; i++)
+    {
+        for(int j=0; j < sim->bodynum; j++)
+        {
+            if(j!=i)
+            {
+                if((sim->bodys+j)->mass / (sim->bodys+i)->mass > 0.001)
+                {
+                    Vector3 direccion = Vector3Subtract(sim->bodys[i].position, sim->bodys[j].position);
+    
+                    double distancia = Vector3Length(direccion);
+                    
+                    double magnitud = GRAVITATIONAL_CONSTANT * sim->bodys[i].mass * sim->bodys[j].mass / (distancia * distancia);
+                    
+                    Vector3 fuerza = Vector3Scale(Vector3Normalize(direccion), magnitud);
+                }
+            }
+        }
+    }
+    for(int i = 0; i<sim->bodynum; i++)
+    {
+        //Actualizar aceleracion 
+        (sim->bodys+i)->acceleration = Vector3Scale((sim->bodys+i)->FGravity, 1.0f/((sim->bodys+i)->mass));
+    }
+
+    for(int i = 0; i<sim->bodynum; i++)
+    {
+        //Actualizar velocidad
+        (sim->bodys+i)->velocity = Vector3Add((sim->bodys+i)->velocity, Vector3Scale((sim->bodys+i)->acceleration, sim->timestep));
+    }
+
+    for(int i = 0; i<sim->bodynum; i++)
+    {
+        //Actualizar posicion
+        (sim->bodys+i)->position = Vector3Add((sim->bodys+i)->position, Vector3Scale((sim->bodys+i)->velocity, sim->timestep));
+    }
 
 }

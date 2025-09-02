@@ -16,7 +16,11 @@ int main()
     float timeMultiplier = 100 * SECONDS_PER_DAY; // Simulation speed: 100 days per simulation second
     float timeStep = timeMultiplier / fps;
 
-    OrbitalSim *sim = constructOrbitalSim(timeStep);
+    OrbitalBody initialBodies[2] = {
+        {"Sun", 1.989E30F, 6.9634E8F, YELLOW, {0, 0, 0}, {0, 0, 0}},
+        {"Earth", 5.972E24F, 6.371E6F, BLUE, {1.496E11F, 0, 0}, {0, 0, 29780}}};
+
+    OrbitalSim *sim = constructOrbitalSim(timeStep, 2, initialBodies);
     View *view = constructView(fps);
 
     while (isViewRendering(view))
