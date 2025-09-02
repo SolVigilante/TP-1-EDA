@@ -1,19 +1,19 @@
 [
 {
   "directory": "/home/sol/Descargas/1. Warm Up - Starter Code/build",
-  "command": "/usr/bin/g++  -isystem /home/sol/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/orbitalsim.dir/main.cpp.o -c \"/home/sol/Descargas/1. Warm Up - Starter Code/main.cpp\"",
+  "command": "/usr/bin/g++ -isystem /home/sol/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/orbitalsim.dir/main.cpp.o -c \"/home/sol/Descargas/1. Warm Up - Starter Code/main.cpp\"",
   "file": "/home/sol/Descargas/1. Warm Up - Starter Code/main.cpp",
   "output": "CMakeFiles/orbitalsim.dir/main.cpp.o"
 },
 {
   "directory": "/home/sol/Descargas/1. Warm Up - Starter Code/build",
-  "command": "/usr/bin/g++  -isystem /home/sol/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/orbitalsim.dir/OrbitalSim.cpp.o -c \"/home/sol/Descargas/1. Warm Up - Starter Code/OrbitalSim.cpp\"",
+  "command": "/usr/bin/g++ -isystem /home/sol/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/orbitalsim.dir/OrbitalSim.cpp.o -c \"/home/sol/Descargas/1. Warm Up - Starter Code/OrbitalSim.cpp\"",
   "file": "/home/sol/Descargas/1. Warm Up - Starter Code/OrbitalSim.cpp",
   "output": "CMakeFiles/orbitalsim.dir/OrbitalSim.cpp.o"
 },
 {
   "directory": "/home/sol/Descargas/1. Warm Up - Starter Code/build",
-  "command": "/usr/bin/g++  -isystem /home/sol/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/orbitalsim.dir/View.cpp.o -c \"/home/sol/Descargas/1. Warm Up - Starter Code/View.cpp\"",
+  "command": "/usr/bin/g++ -isystem /home/sol/dev/vcpkg/installed/x64-linux/include -g -std=gnu++11 -fsanitize=address -fsanitize=undefined -o CMakeFiles/orbitalsim.dir/View.cpp.o -c \"/home/sol/Descargas/1. Warm Up - Starter Code/View.cpp\"",
   "file": "/home/sol/Descargas/1. Warm Up - Starter Code/View.cpp",
   "output": "CMakeFiles/orbitalsim.dir/View.cpp.o"
 }

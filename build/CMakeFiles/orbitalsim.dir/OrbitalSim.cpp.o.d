@@ -60,8 +60,8 @@ CMakeFiles/orbitalsim.dir/OrbitalSim.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /home/sol/Descargas/1.\ Warm\ Up\ -\ Starter\ Code/OrbitalSim.h \
- /home/sol/Descargas/1.\ Warm\ Up\ -\ Starter\ Code/ephemerides.h \
  /home/sol/dev/vcpkg/installed/x64-linux/include/raylib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /home/sol/Descargas/1.\ Warm\ Up\ -\ Starter\ Code/OrbitalSim.h \
+ /home/sol/Descargas/1.\ Warm\ Up\ -\ Starter\ Code/ephemerides.h \
  /home/sol/dev/vcpkg/installed/x64-linux/include/raymath.h
