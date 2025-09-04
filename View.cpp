@@ -102,7 +102,7 @@ void renderView(View *view, OrbitalSim *sim)
     // Fill in your 3D drawing code here:
     // Planetas:
         for (int i = 0; i < sim->bodynum; i++) {
-            double scaledRadius = 0.012f * logf(sim->bodys[i].radius);
+            double scaledRadius = 0.015f * logf(sim->bodys[i].radius);
             Vector3 posEscalada = Vector3Scale(sim->bodys[i].position, 1e-11f);
             if(sim->bodys[i].asteroid == false)
                 DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);

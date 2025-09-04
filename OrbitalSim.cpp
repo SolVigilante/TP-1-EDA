@@ -133,13 +133,15 @@ void updateOrbitalSim(OrbitalSim *sim)
             {
                 if((sim->bodys+j)->mass / (sim->bodys+i)->mass > 0.001)
                 {
-                    Vector3 direccion = Vector3Subtract(sim->bodys[j].position, sim->bodys[i].position);
-    
-                    double distancia = Vector3Length(direccion);
-                    
-                    double magnitud = GRAVITATIONAL_CONSTANT * sim->bodys[j].mass / (distancia * distancia);
-                    
-                    (sim->bodys+i)->FGravity = Vector3Add((sim->bodys+i)->FGravity, Vector3Scale(Vector3Normalize(direccion), magnitud));
+                    if((!(sim->bodys+j)->asteroid)){
+                        Vector3 direccion = Vector3Subtract(sim->bodys[j].position, sim->bodys[i].position);
+        
+                        double distancia = Vector3Length(direccion);
+                        
+                        double magnitud = GRAVITATIONAL_CONSTANT * sim->bodys[j].mass / (distancia * distancia);
+                        
+                        (sim->bodys+i)->FGravity = Vector3Add((sim->bodys+i)->FGravity, Vector3Scale(Vector3Normalize(direccion), magnitud));
+                    }
                 }
             }
         }

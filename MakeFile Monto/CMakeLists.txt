@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.15.0)
 
 project("orbitalsim")
 
@@ -16,16 +16,14 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     add_link_options(-fsanitize=undefined)
 endif()
 
-add_executable(orbitalsim main.cpp OrbitalSim.cpp View.cpp)
+add_executable(orbitalsim main.cpp orbitalSim.cpp view.cpp)
 
 # Raylib
 find_package(raylib CONFIG REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
-
 
 target_include_directories(orbitalsim PRIVATE ${raylib_INCLUDE_DIRS})
 target_link_libraries(orbitalsim PRIVATE ${raylib_LIBRARIES})
-target_link_libraries(orbitalsim PRIVATE glfw)
+
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     # From "Working with CMake" documentation:
     target_link_libraries(orbitalsim PRIVATE "-framework IOKit" "-framework Cocoa" "-framework OpenGL")
