@@ -10,7 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <raylib.h>
+#include "raylib.h"
+#include "raymath.h"
 
 #include "OrbitalSim.h"
 #include "ephemerides.h"
@@ -36,6 +37,19 @@ float getRandomFloat(float min, float max)
  * @param body An orbital body
  * @param centerMass The mass of the most massive object in the star system
  */
+void configurePlanet(OrbitalBody *initialBodies){
+    for(int i = 0; i<PLANET_NUM; i++){
+        initialBodies[i].name = solarSystem[i].name;
+        initialBodies[i].mass = solarSystem[i].mass;
+        initialBodies[i].radius = solarSystem[i].radius;
+        initialBodies[i].color = solarSystem[i].color;
+        initialBodies[i].position = solarSystem[i].position;
+        initialBodies[i].velocity = solarSystem[i].velocity;
+        initialBodies[i].acceleration = {0.0f, 0.0f, 0.0f};
+        initialBodies[i].FGravity = {0.0f, 0.0f, 0.0f};
+        initialBodies[i].asteroid = false;
+    }
+}
 void configureAsteroid(OrbitalBody *body, float centerMass)
 {
     // Logit distribution

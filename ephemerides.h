@@ -11,6 +11,8 @@
 #include "raylib.h"
 #include "raymath.h"
 
+#define PLANET_NUM 9
+
 struct EphemeridesBody
 {
     const char *name; // Name

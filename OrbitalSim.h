@@ -9,6 +9,8 @@
 #define ORBITALSIM_H
 #include <raylib.h>
 
+#define PLANET_NUM 9
+
 /**
  * @brief Orbital body definition
  */
@@ -45,6 +47,7 @@ OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initia
 void destroyOrbitalSim(OrbitalSim *sim);
 void updateOrbitalSim2(OrbitalSim *sim);
 void configureAsteroid(OrbitalBody *body, float centerMass);
+void configurePlanet(OrbitalBody *initialBodies);
 void updateOrbitalSim(OrbitalSim *sim);
 
 #endif
