@@ -18,6 +18,6 @@ Asimsimo, para mejorar la complejidad algoritmica y realizar menos calculos real
 A nivel de gráficos, como los asteroides resultan ser mas pequeños que los planetas se ha decidido que se grafiquen con la funcion DrawSphereWire pues consume menos recursos que el dibujo de una esfera maciza. Además, los planetas lejanos al observador se dibujaran como puntos con el mismo fin. 
 
 #BONUS
-Encontramos el Easter egg de phi = 0
+Encontramos el Easter egg de phi = 0. Al quitar el comentario de esa linea, los asteroides aparecen sobre un mismo plano respecto del sol. 
 Si júpiter es 1000 veces mas masivo enonces empezará a atraer al Sol y funciona como un agujero negro. Destruye todo el Sistema Solar. 
 Asimismo, en la simulacion agregamos el nombre de los planetas para poder identificarlos mas facilmente.
