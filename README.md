@@ -6,7 +6,7 @@ Agustin Montoto:
 Maria Sol Vigilante:
 
 #Análisis de estabilidad
-El timeStep parrece adecuado para la simulacion debido a que presenta comportamiento físico coherente. A mayor timeStep se presentan órbitas más erráticas, sobretodo con el planeta Mercurio. Esto puede ser porque las fuerzas aplicadas son mas intensas. 
+El timeStep parrece adecuado para la simulacion debido a que presenta comportamiento físico coherente. A mayor timeStep se presentan órbitas más erráticas, sobretodo con el planeta Mercurio y la direccion de los asteroides. Esto puede ser porque las fuerzas aplicadas son mas intensas. 
 
 #Análisis de Precisión
 Como en nuestro programa no multiplicamos y luego dividimos por la masa del planeta en el análisis de fuerzas entonces la precision de float nos resulta suficiente. En el caso de que hicieramos eso, deberíamos utilizar una presicion de double o hasta incluso de long double. Sino, se produce un overflow y el comportamiento de el sistema solar carecia de sentido fisico debido al numero resultante de multiplicar las masas.
