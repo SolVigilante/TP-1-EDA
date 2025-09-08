@@ -11,5 +11,5 @@ A nivel de lógica, la masa de los asteroides resulta despreciable con respecto 
 A nivel de gráficos, como los asteroides resultan ser mas pequeños que los planetas se ha decidido que se grafiquen con la funcion DrawSphereWire pues consume menos recursos que el dibujo de una esfera maciza. Además, los planetas lejanos al observador se dibujaran como puntos con el mismo fin. 
 
 #BONUS
-Encontramos el Easter eg de phi = 0
+Encontramos el Easter egg de phi = 0
 Si júpiter es 1000 veces mas masivo enonces empezará a atraer al Sol y funciona como un agujero negro. Destruye todo el Sistema Solar. 
