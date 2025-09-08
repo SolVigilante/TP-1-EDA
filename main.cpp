@@ -1,7 +1,9 @@
 ﻿/**
  * @brief Orbital simulation main module
  * @author Marc S. Ressl
- *
+ *TP 1 EDA
+ * Grupo 4: Agustin Montoto, Maria Sol Vigilante y Sofia Tarantino
+ * Archivo main.cpp del modulo principal que se encarga de ejecutar la simulacion
  * @copyright Copyright (c) 2022-2023
  */
 

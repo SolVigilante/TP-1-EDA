@@ -1,7 +1,9 @@
 /**
  * @brief Implements an orbital simulation view
  * @author Marc S. Ressl
- *
+ * *TP 1 EDA
+ * Grupo 4: Agustin Montoto, Maria Sol Vigilante y Sofia Tarantino
+ * Archivo.h del modulo view que se encarga de la vista de la simulacion
  * @copyright Copyright (c) 2022-2023
  */
 

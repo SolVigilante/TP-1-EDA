@@ -1,7 +1,9 @@
 /**
  * @brief Implements an orbital simulation view
  * @author Marc S. Ressl
- *
+ * *TP 1 EDA
+ * Grupo 4: Agustin Montoto, Maria Sol Vigilante y Sofia Tarantino
+ * Archivo.cpp del modulo view que se encarga de la vista de la simulacion
  * @copyright Copyright (c) 2022-2023
  */
 
@@ -11,11 +13,15 @@
 #include <math.h>
 #include <raylib.h>
 #include "raymath.h"
-
 #include "View.h"
 
+#define TIME_ACCELERATION 1350000.0f
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
+OrbitalBody* selectedBody = NULL;
+
+void Draw_time(OrbitalSim * sim);
+void Draw_Names (OrbitalBody * bodys, int bodynum, Camera3D camera);
 
 /**
  * @brief Converts a timestamp (number of seconds since 1/1/2022)
@@ -90,7 +96,7 @@ bool isViewRendering(View *view)
  * @param view The view
  * @param sim The orbital sim
  */
-void renderView(View *view, OrbitalSim *sim)
+void renderView(View* view, OrbitalSim* sim)
 {
     UpdateCamera(&view->camera, CAMERA_FREE);
 
@@ -100,29 +106,97 @@ void renderView(View *view, OrbitalSim *sim)
     BeginMode3D(view->camera);
 
     // Fill in your 3D drawing code here:
-    // Planetas:
-        for (int i = 0; i < sim->bodynum; i++) {
-            double scaledRadius = 0.015f * logf(sim->bodys[i].radius);
-            Vector3 posEscalada = Vector3Scale(sim->bodys[i].position, 1e-11f);
-            if(sim->bodys[i].asteroid == false)
+    // Planetas y asterodies
+    for (int i = 0; i < sim->bodynum; i++) {
+        double scaledRadius = 0.015f * logf(sim->bodys[i].radius);
+        Vector3 posEscalada = Vector3Scale(sim->bodys[i].position, 1e-11f);
+
+        if (!(sim->bodys[i].asteroid)) {
+            float distance = Vector3Distance(view->camera.position, sim->bodys[i].position);
+
+            if (distance < 1e12f) {
+                // Dibujamos la esfera escalada
+                float scaledRadius = 0.005f * logf(sim->bodys[i].radius);
                 DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
-            else{
-                scaledRadius *= 0.1f;
-                DrawSphereWires(posEscalada, scaledRadius, 8, 8, sim->bodys[i].color);
-                //DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
             }
+            else {
+				// Dibujamos un punto 3D si estamos lejos para optimizar
+                DrawPoint3D(posEscalada, sim->bodys[i].color);
+            }
+            // Guardamos la posición proyectada en la struct
+            sim->bodys[i].screenPos = GetWorldToScreen(posEscalada, view->camera);
         }
-    
-
-
+        else {// Asteroides
+            scaledRadius *= 0.1f;
+            DrawSphereWires(posEscalada, scaledRadius, 8, 8, sim->bodys[i].color);
+        }
+        // Guardamos la posición proyectada en la struct
+        sim->bodys[i].screenPos = GetWorldToScreen(posEscalada, view->camera);
+    }
 
     DrawGrid(10, 10.0f);
     EndMode3D();
 
     // Fill in your 2D drawing code here:
 
-
     SetTargetFPS(60); // Opcional: limitar a 60 FPS
     DrawFPS(10, 10);  // Muestra FPS en la esquina superior izquierda
+
+    Draw_time(sim);
+
+    Draw_Names(sim->bodys, sim->bodynum, view->camera);
+
     EndDrawing();
+}
+/**
+ * Renders the simulation time
+ * @param sim The orbital sim
+ */
+void Draw_time(OrbitalSim * sim){
+    char timeText[64];
+
+    // Calcular tiempo transcurrido (asumiendo que timeStart es el tiempo inicial)
+    float simulationTime = (GetTime() - sim->timestart) * TIME_ACCELERATION;
+
+    // Convertir a formato ISO usando la función provista
+    const char* isoDate = getISODate(simulationTime);
+
+    // Mostrar el tiempo de simulación
+    if (isoDate != NULL) {
+        sprintf(timeText, "Simulation Time: %s", isoDate);
+    }
+    else {
+        // Fallback si getISODate no está disponible
+        sprintf(timeText, "Time: %.1f seconds", simulationTime);
+    }
+    DrawText(timeText, 10, 40, 20, WHITE);
+
+    // Mostrar también el tiempo en años para referencia astronómica
+    float years = simulationTime / (365.25f * 24.0f * 3600.0f);
+    sprintf(timeText, "Years: %.3f", years);
+    DrawText(timeText, 10, 70, 20, WHITE);
+}
+/**
+ * Renders the planetts names
+ *
+ * @param bodys The orbital bodys
+ * @param bodynum Number of bodys
+ * @param camera The current camera
+ */
+void Draw_Names (OrbitalBody * bodys, int bodynum, Camera3D camera){
+    for (int i = 0; i < bodynum; i++) {
+        if (!(bodys[i].asteroid)) {
+            //SI no es un asteroide
+            Vector2 sp = bodys[i].screenPos;
+            if ((sp.x >= 0 && sp.x <= GetScreenWidth()) &&
+                (sp.y >= 0 && sp.y <= GetScreenHeight())) {
+                if((camera.target.y <= 3 && camera.position.y >= 5) || 
+                   (camera.position.y < 5 && camera.target.y <= -5.0f + camera.position.y)){
+                    //Solo dibuja el nombre si la camara esta suficientemente baja y se ve el planeta desde arriba
+                    DrawText(bodys[i].name, (int)sp.x, (int)sp.y - 20, 16, RAYWHITE);
+                }
+            }
+            
+        }
+    }
 }

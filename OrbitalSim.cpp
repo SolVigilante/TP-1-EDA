@@ -1,7 +1,9 @@
 /**
  * @brief Orbital simulation
  * @author Marc S. Ressl
- *
+ * *TP 1 EDA
+ * Grupo 4: Agustin Montoto, Maria Sol Vigilante y Sofia Tarantino
+ * Archivo.cpp del modulo orbital sim que se encarga de la simulacion orbital, es decir, la logica de los calculos
  * @copyright Copyright (c) 2022-2023
  */
 
@@ -35,7 +37,6 @@ float getRandomFloat(float min, float max)
  * @brief Configures an asteroid
  *
  * @param body An orbital body
- * @param centerMass The mass of the most massive object in the star system
  */
 void configurePlanet(OrbitalBody *initialBodies){
     for(int i = 0; i<PLANET_NUM; i++){
@@ -50,6 +51,12 @@ void configurePlanet(OrbitalBody *initialBodies){
         initialBodies[i].asteroid = false;
     }
 }
+/**
+ * @brief Configures an asteroid
+ *
+ * @param body An orbital body
+ * @param centerMass The mass of the most massive object in the star system
+ */
 void configureAsteroid(OrbitalBody *body, float centerMass)
 {
     // Logit distribution
@@ -81,6 +88,8 @@ void configureAsteroid(OrbitalBody *body, float centerMass)
  * @brief Constructs an orbital simulation
  *
  * @param float The time step
+ * @param int number of bodies
+ *@param OrbitalBody* initial bodies
  * @return The orbital simulation
  */
 OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initialBodies)
@@ -111,7 +120,6 @@ OrbitalSim *constructOrbitalSim(float timeStep, int bodynum, OrbitalBody *initia
     }
     return Sim;
 }
-
 /**
  * @brief Destroys an orbital simulation
  */
@@ -127,15 +135,12 @@ void destroyOrbitalSim(OrbitalSim *sim)
  *
  * @param sim The orbital simulation
  */
-void updateOrbitalSim2(OrbitalSim *sim)
-{
-    (sim->bodys+1)->position = Vector3Add((sim->bodys+1)->position, Vector3Scale((sim->bodys+1)->velocity, sim->timestep));
-}
+
 
 void updateOrbitalSim(OrbitalSim *sim)
 {
     for(int i = 0; i < sim->bodynum; i++) {
-        sim->bodys[i].FGravity = (Vector3){0, 0, 0};
+        sim->bodys[i].FGravity = {0, 0, 0};
     }
 
     // Actualizar la Fuerza Graviatoria
@@ -145,16 +150,19 @@ void updateOrbitalSim(OrbitalSim *sim)
         {
             if(j!=i)
             {
-                if((sim->bodys+j)->mass / (sim->bodys+i)->mass > 0.001)
+                if((sim->bodys+j)->mass / (sim->bodys+i)->mass > 0.0001)
                 {
-                    if((!(sim->bodys+j)->asteroid)){
-                        Vector3 direccion = Vector3Subtract(sim->bodys[j].position, sim->bodys[i].position);
+                    if(!((sim->bodys+j)->asteroid)||(((sim->bodys + i)->asteroid)&&j==0)){
+                        Vector3 direccion = Vector3Subtract(sim->bodys[j].position,
+                        sim->bodys[i].position);
         
                         double distancia = Vector3Length(direccion);
                         
-                        double magnitud = GRAVITATIONAL_CONSTANT * sim->bodys[j].mass / (distancia * distancia);
+                        double magnitud = GRAVITATIONAL_CONSTANT * sim->bodys[j].mass /
+                        (distancia * distancia);
                         
-                        (sim->bodys+i)->FGravity = Vector3Add((sim->bodys+i)->FGravity, Vector3Scale(Vector3Normalize(direccion), magnitud));
+                        (sim->bodys+i)->FGravity = Vector3Add((sim->bodys+i)->FGravity,
+                        Vector3Scale(Vector3Normalize(direccion), magnitud));
                     }
                 }
             }
@@ -169,13 +177,15 @@ void updateOrbitalSim(OrbitalSim *sim)
     for(int i = 0; i<sim->bodynum ; i++)
     {
         //Actualizar velocidad
-        (sim->bodys+i)->velocity = Vector3Add((sim->bodys+i)->velocity, Vector3Scale((sim->bodys+i)->acceleration, sim->timestep));
+        (sim->bodys+i)->velocity = Vector3Add((sim->bodys+i)->velocity,
+        Vector3Scale((sim->bodys+i)->acceleration, sim->timestep));
     }
 
     for(int i = 0; i<sim->bodynum; i++)
     {
         //Actualizar posicion
-        (sim->bodys+i)->position = Vector3Add((sim->bodys+i)->position, Vector3Scale((sim->bodys+i)->velocity, sim->timestep));
+        (sim->bodys+i)->position = Vector3Add((sim->bodys+i)->position,
+        Vector3Scale((sim->bodys+i)->velocity, sim->timestep));
     }
 
 }

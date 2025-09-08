@@ -1,7 +1,9 @@
 /**
  * @brief Orbital simulation
  * @author Marc S. Ressl
- *
+ * *TP 1 EDA
+ * Grupo 4: Agustin Montoto, Maria Sol Vigilante y Sofia Tarantino
+ * Archivo.h del modulo orbital sim que se encarga de la simulacion orbital, es decir, la logica de los calculos
  * @copyright Copyright (c) 2022-2023
  */
 
@@ -26,6 +28,7 @@ struct OrbitalBody
     Vector3 acceleration; //[m/s^2]
     Vector3 FGravity; //[N]
     bool asteroid;
+    Vector2 screenPos;
 };
 
 /**
