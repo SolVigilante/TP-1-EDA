@@ -67,7 +67,7 @@ void configureAsteroid(OrbitalBody *body, float centerMass)
     float r = ASTEROIDS_MEAN_RADIUS * sqrtf(fabsf(l));
     float phi = getRandomFloat(0, 2.0F * (float)M_PI);
 
-    //Surprise!
+    //Surprise!, el easter egg
     //phi = 0;
 
     // https://en.wikipedia.org/wiki/Circular_orbit#Velocity
