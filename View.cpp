@@ -15,7 +15,7 @@
 #include "raymath.h"
 #include "View.h"
 
-#define TIME_ACCELERATION 1350000.0f
+#define TIME_ACCELERATION 1000000.0f
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 OrbitalBody* selectedBody = NULL;
