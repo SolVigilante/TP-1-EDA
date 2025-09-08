@@ -1,9 +1,11 @@
 # TP-1-EDA
 
 #Trabajo de cada integrante del grupo
+Previo a dividir las tareas, trabajamos juntos sobre como estructurar el codigo, su logica y su optimizacion. Luego al dividirnos especificamente cada uno realizo su tarea:
+
 Sofia Tarantino: Se encargo de las funciones de view, es decir, de la renderizacion del modelo y todo lo relativo a la visualizacion del mismo.
-Agustin Montoto:
-Maria Sol Vigilante:
+Agustin Montoto: Se encargo de la optimizacion en al renderizacion y en como realizar los calculos de los asteroides
+Maria Sol Vigilante: Se encargo de la logica del calculo de las aceleraciones, velocidades y fuerzas.
 
 #Análisis de estabilidad
 El timeStep parrece adecuado para la simulacion debido a que presenta comportamiento físico coherente. A mayor timeStep se presentan órbitas más erráticas, sobretodo con el planeta Mercurio y la direccion de los asteroides. Esto puede ser porque las fuerzas aplicadas son mas intensas. 
