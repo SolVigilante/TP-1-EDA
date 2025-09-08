@@ -114,7 +114,7 @@ void renderView(View* view, OrbitalSim* sim)
         if (!(sim->bodys[i].asteroid)) {
             float distance = Vector3Distance(view->camera.position, posEscalada);
 
-            if (distance < 15.0f) {
+            if (distance < 30.0f) {
                 // Dibujamos la esfera escalada
                 float scaledRadius = 0.005f * logf(sim->bodys[i].radius);
                 DrawSphere(posEscalada, scaledRadius, sim->bodys[i].color);
